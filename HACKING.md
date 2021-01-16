@@ -29,7 +29,7 @@ structures.
 #### Page
 - A fixed size region within the file on a 2 or 4K boundry.
 - All data in the file exists inside pages.
-- (see \ref MDB_PAGE_DB, \ref MDB_PAGE_TABLE, \ref MDB_PAGE_INDEX)
+- (see \ref pages_overview)
 
 #### System Table
 - Tables in Access generally starting with "MSys".
@@ -127,7 +127,7 @@ collating sort order.
 - Data rows are all stored in data pages.
 - The header of a Jet3 data page looks like this:
 
-### Jet3 Data Page Definition
+#### Jet3 Data Page Definition
 
 | data | length  | name       | description                                |
 |------|---------|------------|--------------------------------------------|
@@ -160,7 +160,7 @@ Decoding a row requires knowing the number and types of columns from its TDEF
 page. Decoding is handled by the routine mdb_crack_row().
 
 
-### Jet3 Row Definition
+#### Jet3 Row Definition
 
 | data | length  | name       | description                                |
 |------|---------|------------|--------------------------------------------|
@@ -174,7 +174,7 @@ page. Decoding is handled by the routine mdb_crack_row().
 | ???? | n bytes | null_mask  | Null indicator.  See notes.                |
 
 
-### Jet4 Row Definition
+#### Jet4 Row Definition
 
 | data | length  | name       | description                                |
 |------|---------|------------|--------------------------------------------|
@@ -231,7 +231,7 @@ entries.  Thus, the jump table was (thankfully) ditched in Jet4.
 Each memo column (or other long binary data) in a row
 
 
-###  Memo Field Definition (12 bytes)
+####  Memo Field Definition (12 bytes)
 
 | data | length  | name        | description                              |
 |------|---------|-------------|------------------------------------------|
@@ -309,7 +309,7 @@ Every table in the database has a TDEF page.  It contains a definition of
 the columns, types, sizes, indexes, and similar information.
 
 
-###  Jet3/Jet4 TDEF Header
+####  Jet3/Jet4 TDEF Header
 
 | data | length  | name        | description                              |
 |------|---------|-------------|------------------------------------------|
@@ -323,7 +323,7 @@ the columns, types, sizes, indexes, and similar information.
 TDEFs can span multiple pages for large tables, this is accomplished using the
 next_pg field.
 
-### Jet3 Table Definition Block (35 bytes)
+#### Jet3 Table Definition Block (35 bytes)
 
 | data | length  | name        | description                              |
 |------|---------|-------------|------------------------------------------|
@@ -381,7 +381,7 @@ next_pg field.
 
 
 
-### Jet4 Table Definition Block (55 bytes)
+#### Jet4 Table Definition Block (55 bytes)
 
 | data | length  | name        | description                              |
 |------|---------|-------------|------------------------------------------|
@@ -546,7 +546,7 @@ The table bitmaps appear to be of a fixed size for both Jet 3 and 4 (128 and 64
 bytes respectively).  The first byte of the map is a type field.
 
 
-### Type 0 Page Usage Map
+#### Type 0 Page Usage Map
 
 | data | length  | name       | description                                |
 |------|---------|------------|--------------------------------------------|
@@ -565,7 +565,7 @@ larger database files although the initial start page helps a bit.  To overcome
 this there is a second page usage map scheme with the map_type of 0x01.
 
 
-### Type 1 Page Usage Map
+#### Type 1 Page Usage Map
 
 | data | length  | name       | description                                |
 |------|---------|------------|--------------------------------------------|
@@ -579,7 +579,7 @@ indirection.  The 0x05 type page header looks like:
 
 
 
-###  Usage Map Page (type 0x05)
+####  Usage Map Page (type 0x05)
 
 | data | length  | name       | description                                |
 |------|---------|------------|--------------------------------------------|
@@ -602,7 +602,7 @@ believe any other page map schemes exist.
 
 Indices are not completely understood but here is what we know.
 
-### Index Page (type 0x03)
+#### Index Page (type 0x03)
 
 
 | data | length  | name        | description                              |
