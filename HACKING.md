@@ -800,7 +800,7 @@ See ``props.c``` for an example.
 - So for databases created on U.S. English systems, it can be expected that text
   is encoded in CP1252.  This is the default used by mdbtools.
 - If you know that another encoding has been used, you can override the default by setting the
-  environment variable \ref MDB_JET3_CHARSET.
+  environment variable **MDB_JET3_CHARSET**.
 - To find out what encodings will work on your system, run `iconv -l`.
 
 #### Jet4
