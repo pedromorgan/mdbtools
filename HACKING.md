@@ -17,25 +17,23 @@ hex format.
 Most multibyte pointer and integers are stored in little endian (LSB-MSB) order.
 There is an exception in the case of indexes, see \ref indexes.
 
-## Terminology
+### Terminology
 
 
 This section contains a mix of information about data structures used in the MDB
 file format along with general database terminology needed to explain these 
 structures.
 
-\warning Some of this info may be outta date or incorrect. Refer to the source code or file a bug.
-
 #### Page
 - A fixed size region within the file on a 2 or 4K boundry.
 - All data in the file exists inside pages.
-- (see \ref pages_overview)
+- see \ref pages_overview
 
 #### System Table
 - Tables in Access generally starting with "MSys".
 - The 'Flags' field in the table's Catalog Entry will contain a flag in one
   of two positions (0x80000000 or 0x00000002).
-- See also the \ref tdef_pages for "System Table" field.
+- See  \ref tdef_pages for "System Table" field.
 		        
 #### Catalog Entry
 - A row from the MSysObjects table describing another database object.
@@ -59,11 +57,12 @@ structures.
   overflow pages back into regular pages.
                 
 #### Leaf Page
-- The lowest page on an index tree.
+- The lowest page on an index tree. (see \ref indexes)
 - In Access, leaf pages are of a different type than other index pages.
                 
 #### UCS-2
 - a two byte unicode encoding used in Jet4 files.
+- see \ref text_data_type
 
 #### Covered Query
 - A query that can be satisfied by reading only index pages.
@@ -793,25 +792,31 @@ Next comes one of more chunks of data:
 See ``props.c``` for an example.
 
 
-### Text Data Type
+## Text Data Type ## {#text_data_type}
 
-In Jet3, the encoding of text depends on the machine on which it was created.
-So for databases created on U.S. English systems, it can be expected that text
-is encoded in CP1252.  This is the default used by mdbtools.  If you know that
-another encoding has been used, you can override the default by setting the
-environment variable MDB_JET3_CHARSET.  To find out what encodings will work on
-your system, run 'iconv -l'.
+#### Jet3
 
-In Jet4, the encoding can be either little-endian UCS-2, or a special
-compressed form of it.  This compressed format begins with 0xff 0xfe.
-The string then starts in compressed mode, where characters with 0x00 for the
-most-significant byte do not encode it.  In the compressed format, a 0x00 byte
-signals a change from compressed mode to uncompressed mode, or from
-uncompressed mode back to compressed mode.  The string may end in either mode.
-Note that a string containing any character 0x##00 (UCS-2) will not be
-compressed.  Also, the string will only be compressed if it really does make
-the string shorter as compared to uncompressed UCS-2.
+- In Jet3, the encoding of text depends on the machine on which it was created.
+- So for databases created on U.S. English systems, it can be expected that text
+  is encoded in CP1252.  This is the default used by mdbtools.
+- If you know that another encoding has been used, you can override the default by setting the
+  environment variable \ref MDB_JET3_CHARSET.
+- To find out what encodings will work on your system, run `iconv -l`.
+
+#### Jet4
+
+- In Jet4, the encoding can be either little-endian UCS-2, or a special
+  compressed form of it.  This compressed format begins with 0xff 0xfe.
+- The string then starts in compressed mode, where characters with 0x00 for the
+  most-significant byte do not encode it.  In the compressed format, a 0x00 byte
+  signals a change from compressed mode to uncompressed mode, or from
+  uncompressed mode back to compressed mode.
+- The string may end in either mode.
+- Note that a string containing any character 0x##00 (UCS-2) will not be
+  compressed.
+- Also, the string will only be compressed if it really does make
+  the string shorter as compared to uncompressed UCS-2.
 
 Programs that use mdbtools libraries will receive strings encoded in UTF-8 by
 default.  This default can by overridden by setting the environment variable
-MDBICONV to the desired encoding.
+**MDBICONV** to the desired encoding.

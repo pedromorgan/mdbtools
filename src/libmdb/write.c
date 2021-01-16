@@ -159,7 +159,7 @@ mdb_crack_row3(MdbHandle *mdb, unsigned int row_start, unsigned int row_end,
  * @param row_start: offset to start of row on current page
  * @param row_size: offset to end of row on current page
  * @param fields: pointer to MdbField array to be populated by mdb_crack_row
- *
+ * @return: number of fields present, or -1 if the buffer is invalid.
  *
  * A row buffer is that portion of a data page which contains the values for
  * that row.  Its beginning and end can be found in the row offset table.
@@ -171,7 +171,7 @@ mdb_crack_row3(MdbHandle *mdb, unsigned int row_start, unsigned int row_end,
  * This routine is mostly used internally by mdb_fetch_row() but may have some
  * applicability for advanced application programs.
  *
- * @return: number of fields present, or -1 if the buffer is invalid.
+ * \see \ref data_pages
  */
 int
 mdb_crack_row(MdbTableDef *table, int row_start, size_t row_size, MdbField *fields)

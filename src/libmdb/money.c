@@ -21,6 +21,7 @@
 
 #define MAX_MONEY_PRECISION   20
 #define MAX_NUMERIC_PRECISION 40
+
 /* 
 ** these routines are copied from the freetds project which does something
 ** very similiar
@@ -32,10 +33,9 @@ static char *array_to_string(unsigned char *array, size_t len, int unsigned scal
 
 /**
  * mdb_money_to_string
- * @mdb: Handle to open MDB database file
- * @start: Offset of the field within the current page
- *
- * Returns: the allocated string that has received the value.
+ * @param mdb Handle to open MDB database file
+ * @param start Offset of the field within the current page
+ * @return the allocated string that has received the value
  */
 char *mdb_money_to_string(MdbHandle *mdb, int start)
 {

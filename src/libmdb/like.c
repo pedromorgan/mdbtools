@@ -21,15 +21,17 @@
 #include "mdbtools.h"
 
 /**
+ * @brief Tests a string to see if it matches the search pattern
+ * @param s String to search within.
+ * @param r Search pattern.
+ * @return
+ *     - 1 if the string matches
+ *     - 0 if the string does not match.
  *
- * @param s: String to search within.
- * @param r: Search pattern.
- *
- * Tests the string @s to see if it matches the search pattern @r.  In the
+ * Tests the string `s` to see if it matches the search pattern `r`.  In the
  * search pattern, a percent sign indicates matching on any number of
  * characters, and an underscore indicates matching any single character.
  *
- * @Returns: 1 if the string matches, 0 if the string does not match.
  */
 int mdb_like_cmp(char *s, char *r)
 {

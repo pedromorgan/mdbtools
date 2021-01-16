@@ -137,14 +137,13 @@ mdb_bind_column_by_name(MdbTableDef *table, gchar *col_name, void *bind_ptr, int
 }
 
 /**
- * mdb_find_pg_row
- * @mdb: Database file handle
- * @pg_row: Lower byte contains the row number, the upper three contain page
- * @buf: Pointer for returning a pointer to the page
- * @off: Pointer for returning an offset to the row
- * @len: Pointer for returning the length of the row
- * 
- * Returns: 0 on success. -1 on failure.
+ * @brief TODO
+ * @param mdb: Database file handle
+ * @param pg_row: Lower byte contains the row number, the upper three contain page
+ * @param buf: Pointer for returning a pointer to the page
+ * @param off: Pointer for returning an offset to the row
+ * @param len: Pointer for returning the length of the row
+ * @return 0 on success or -1 on failure.
  */
 int mdb_find_pg_row(MdbHandle *mdb, int pg_row, void **buf, int *off, size_t *len)
 {

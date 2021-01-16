@@ -125,16 +125,13 @@ static void RC4(RC4_KEY *key, int buffer_len, unsigned char * buff)
 
 
 /**
- * mdb_find_file:
- * @filename: path to MDB (database) file
+ * @brief Finds and returns the absolute path to an MDB file.
+ * @param file_name path to MDB (database) file
+ * @return gchar pointer to absolute path.
+ * \warning Caller is responsible for freeing.
  *
- * Finds and returns the absolute path to an MDB file.  Function will first try
- * to fstat file as passed, then search through the $MDBPATH if not found.
- *
- * Return value: gchar pointer to absolute path. Caller is responsible for
- * freeing.
+ * Function will first try to fstat file as passed, then search through the $MDBPATH if not found.
  **/
-
 static char *mdb_find_file(const char *file_name)
 {
 	struct stat status;
@@ -170,15 +167,11 @@ static char *mdb_find_file(const char *file_name)
 }
 
 /**
- * mdb_handle_from_stream:
- * @stream An open file stream
- * @flags MDB_NOFLAGS for read-only, MDB_WRITABLE for read/write
- *
- * Allocates, initializes, and return an MDB handle from a file stream pointing
- * to an MDB file.
- *
- * Return value: The handle on success, NULL on failure
- */
+ * @brief Allocates, initializes, and return an MDB handle from a file stream pointing to an MDB file.
+ * @param stream An open file stream
+ * @param flags MDB_NOFLAGS for read-only, MDB_WRITABLE for read/write
+ * @return: The handle on success, NULL on failure
+  */
 static MdbHandle *mdb_handle_from_stream(FILE *stream, MdbFileFlags flags) {
 	MdbHandle *mdb = g_malloc0(sizeof(MdbHandle));
 	mdb_set_default_backend(mdb, "access");
@@ -252,13 +245,11 @@ static MdbHandle *mdb_handle_from_stream(FILE *stream, MdbFileFlags flags) {
 }
 
 /**
- * mdb_open_buffer:
- * @buffer A memory buffer containing an MDB file
- * @len Length of the buffer
- *
- * Opens an MDB file in memory and returns an MdbHandle to it.
- *
- * Return value: point to MdbHandle structure.
+ * @brief Opens an MDB file in memory
+ * @param buffer A memory buffer containing an MDB file
+ * @param len Length of the buffer
+ * @param flags \ref MdbFileFlags
+ * @return pointer to MdbHandle structure.
  */
 MdbHandle *mdb_open_buffer(void *buffer, size_t len, MdbFileFlags flags) {
     FILE *file = NULL;
@@ -275,15 +266,16 @@ MdbHandle *mdb_open_buffer(void *buffer, size_t len, MdbFileFlags flags) {
 }
 
 /**
- * mdb_open:
- * @filename: path to MDB (database) file
- * @flags: MDB_NOFLAGS for read-only, MDB_WRITABLE for read/write
+ * @brief Opens an MDB file
+ * @param filename: path to MDB (database) file
+ * @param flags: MDB_NOFLAGS for read-only, MDB_WRITABLE for read/write
+ * @return pointer to MdbHandle structure.
  *
- * Opens an MDB file and returns an MdbHandle to it.  MDB File may be relative
+ *  MDB File may be relative
  * to the current directory, a full path to the file, or relative to a 
  * component of $MDBPATH.
  *
- * Return value: pointer to MdbHandle structure.
+ * \see \ref mdb_close()
  **/
 MdbHandle *mdb_open(const char *filename, MdbFileFlags flags)
 {
@@ -312,11 +304,10 @@ MdbHandle *mdb_open(const char *filename, MdbFileFlags flags)
 }
 
 /**
- * mdb_close:
- * @mdb: Handle to open MDB database file
+ * @brief Dereferences MDB file
+ * @param mdb: Handle to open MDB database file
  *
  * Dereferences MDB file, closes if reference count is 0, and destroys handle.
- *
  **/
 void 
 mdb_close(MdbHandle *mdb)
@@ -341,13 +332,12 @@ mdb_close(MdbHandle *mdb)
 	g_free(mdb);
 }
 /**
- * mdb_clone_handle:
- * @mdb: Handle to open MDB database file
+ * @brief Clones an existing database handle
+ * @param mdb: Handle to open MDB database file
+ * @return: new handle to the database.
  *
- * Clones an existing database handle.  Cloned handle shares the file descriptor
+ * Cloned handle shares the file descriptor
  * but has its own page buffer, page position, and similar internal variables.
- *
- * Return value: new handle to the database.
  */
 MdbHandle *mdb_clone_handle(MdbHandle *mdb)
 {

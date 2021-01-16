@@ -437,13 +437,12 @@ static void mdb_drop_backend(gpointer key, gpointer value, gpointer data)
 }
 
 /**
- * mdb_set_default_backend
- * @mdb: Handle to open MDB database file
- * @backend_name: Name of the backend to set as default
- *
- * Sets the default backend of the handle @mdb to @backend_name.
- *
- * Returns: 1 if successful, 0 if unsuccessful.
+ * @brief Sets the default backend of the MdbHandle to \p backend_name.
+ * @param mdb Handle to open MDB database file
+ * @param backend_name Name of the backend to set as default
+ * @return
+ *    - 1 if successful
+ *    - 0 if unsuccessful
  */
 int mdb_set_default_backend(MdbHandle *mdb, const char *backend_name)
 {
@@ -513,9 +512,9 @@ mdb_get_index_name(int backend, MdbTableDef *table, MdbIndex *idx)
 
 /**
  * mdb_print_indexes
- * @output: Where to print the sql
- * @table: Table to process
- * @dbnamespace: Target namespace/schema name
+ * @param outfile Where to print the sql
+ * @param table Table to process
+ * @param dbnamespace Target namespace/schema name
  */
 static void
 mdb_print_indexes(FILE* outfile, MdbTableDef *table, char *dbnamespace)
@@ -618,22 +617,23 @@ mdb_print_indexes(FILE* outfile, MdbTableDef *table, char *dbnamespace)
 }
 
 /**
- * mdb_get_relationships
- * @mdb: Handle to open MDB database file
- * @tablename: Name of the table to process. Process all tables if NULL.
+ * @brief Generates relationships by reading the MSysRelationships table
  *
- * Generates relationships by reading the MSysRelationships table.
- *   'szColumn' contains the column name of the child table.
- *   'szObject' contains the table name of the child table.
- *   'szReferencedColumn' contains the column name of the parent table.
- *   'szReferencedObject' contains the table name of the parent table.
- *   'grbit' contains integrity constraints.
+ *   - 'szColumn' contains the column name of the child table.
+ *   - 'szObject' contains the table name of the child table.
+ *   - 'szReferencedColumn' contains the column name of the parent table.
+ *   - 'szReferencedObject' contains the table name of the parent table.
+ *   - 'grbit' contains integrity constraints.
  *
- * Returns: a string stating that relationships are not supported for the
- *   selected backend, or a string containing SQL commands for setting up
- *   the relationship, tailored for the selected backend.
- *   Returns NULL on last iteration.
- *   The caller is responsible for freeing this string.
+ * @param mdb Handle to open MDB database file
+ * @param dbnamespace TODO
+ * @param tablename Name of the table to process. Process all tables if NULL.
+ * @return
+ *    - a string stating that relationships are not supported for the selected backend,
+ *    - or a string containing SQL commands for setting up
+ *      the relationship, tailored for the selected backend.
+ *    - Returns NULL on last iteration.
+ *    - The caller is responsible for freeing this string.
  */
 static char *
 mdb_get_relationships(MdbHandle *mdb, const gchar *dbnamespace, const char* tablename)
