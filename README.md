@@ -2,9 +2,15 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/22wwy5d0rrmk6e3c/branch/dev?svg=true)](https://ci.appveyor.com/project/evanmiller/mdbtools/branch/dev)
 [![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/mdbtools.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:mdbtools)
 
-Welcome to the exciting world of MDB Tools! MDB Tools is a set of programs to
-help you extract data from Microsoft Access files in various settings. See the
-[NEWS](./NEWS) file for information about the latest release.
+# Welcome to the exciting world of MDB Tools
+
+- MDB Tools is a set of code and programs to
+  help extract data from Microsoft Access files in various settings, without Access eg on linux
+- The code and core is mainly in c, and is really reverse engineering (see [HACKING](./HACKING.md))
+
+## Latest Release
+
+ - Goto [Latest Release](https://github.com/mdbtools/mdbtools/releases)
 
 ## Components
 
